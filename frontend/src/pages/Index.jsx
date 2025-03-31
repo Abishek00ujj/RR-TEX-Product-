@@ -64,18 +64,16 @@ const Index = () => {
              </div>    
        </div>
        <div className='w-screen h-screen flex text-white justify-center items-center'>
-          <div className='max-sm:w-[80%] w-[600px] h-[300px] bg-blue-950 rounded-2xl transition-transform ease-in-out flex flex-col gap-10 p-3 5' >
-               <div className='w-full flex font-bold items-center justify-center text-2xl'>
+          <div className='max-sm:w-[80%] w-[600px] h-[300px] bg-blue-950 rounded-2xl transition-transform ease-in-out flex flex-col gap-10'>
+               <div className='w-full  flex font-bold items-center justify-center text-2xl'>
                    Owner Login
                </div>
                <div className='flex flex-col w-full items-center justify-center gap-5'>
                    <input onKeyDown={handleKeyDown} ref={userIdRef} placeholder='ID' className=' font-bold text-white w-[80%] bg-gray-500 mt-2 p-2 4 rounded-[10px]' type="text" />
                    <input onKeyDown={handleKeyDown} ref={userPassRef} placeholder='Password' className='font-bold text-white w-[80%] bg-gray-500 mt-2 mb-2 p-2 4 rounded-[10px]' type="text" />
-               </div> 
-        <div className='w-full flex justify-center items-center'>
-        <button onClick={Login} className='w-[80%] bg-green-500 h-[40px]'>
-            Login
-        </button>
+                   <button onClick={Login} className='w-[80%] bg-green-500 h-[40px]'>
+                   Login
+                </button>
        </div>
           </div>
        </div>

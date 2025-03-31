@@ -19,8 +19,8 @@ const Home = () => {
   return (
     <>
       <Navbar/>
-      <div>
-          
+      <div className='w-screen h-screen bg-[#d8cfcf]'>
+           
       </div>
     </>
   )
