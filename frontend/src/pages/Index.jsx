@@ -65,7 +65,7 @@ const Index = () => {
        </div>
        <div className='w-screen h-screen flex text-white justify-center items-center'>
           <div className='max-sm:w-[80%] w-[600px] h-[300px] bg-blue-950 rounded-2xl transition-transform ease-in-out flex flex-col gap-10'>
-               <div className='w-full  flex font-bold items-center justify-center text-2xl'>
+               <div className='w-full h-[60px] flex font-bold items-center justify-center text-2xl'>
                    Owner Login
                </div>
                <div className='flex flex-col w-full items-center justify-center gap-5'>
