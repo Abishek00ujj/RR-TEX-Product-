@@ -11,6 +11,7 @@ const Home = () => {
           position: 'top-center',
           icon,
         });
+    const reDirect = () => {}
 
 
         useEffect(()=>{
@@ -27,7 +28,10 @@ const Home = () => {
            </button>
         </div>
           <div className='w-screen flex flex-col mt-5 justify-center items-center gap-10'>
-              <div className='text-2xl bg-green-400 p-4 5 rounded-2xl'>
+              <div name = "Po" onClick = {()=>{
+                navigate('/createPo');
+              }} className='text-2xl bg-green-400 p-4 5 rounded-2xl'>
+                
                 New PO
               </div>
               <div className='text-2xl bg-green-400 p-4 5 rounded-2xl'>
