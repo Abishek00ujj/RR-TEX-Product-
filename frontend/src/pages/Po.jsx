@@ -1,20 +1,25 @@
 import React, { useState, useRef } from 'react';
 import Navbar from '../components/Navbar';
 import toast, { Toaster } from 'react-hot-toast';
-
+import { useNavigate } from 'react-router-dom';
 const Po = () => {
+    const navigate=useNavigate();
     const [Podata, setPodata] = useState({ PO: '', PoDate: '', GstIn: '' });
     const poRef = useRef(null);
     const gstInRef = useRef(null);
     const poDateRef = useRef(null);
 
-    const [hide1, setHide1] = useState(false);
+    const [hide1, setHide1] = useState(true);
 
     const notify = (message, icon = "X") =>
         toast.error(message, {
             position: 'top-center',
             icon,
         });
+
+        const handleNext=()=>{
+
+        }
 
     const handlePo = () => {
         const PO = poRef.current.value.trim();
@@ -81,10 +86,15 @@ const Po = () => {
                                         </tr>
                                     </thead>
                                 </table>
-                                <div className='w-full flex justify-end'>
+                                <div className='w-full flex justify-end gap-3'>
                                     <div className="w-[75px] h-[35px] flex justify-center items-center">
                                         <div className='w-full h-full bg-red-500 justify-center items-center text-black font-bold flex rounded-[10px]' onClick={toggleNow1}>
                                             EDIT
+                                        </div>
+                                    </div>
+                                    <div className="w-[75px] h-[35px] flex justify-center items-center">
+                                        <div className='w-full h-full bg-green-500 justify-center items-center text-black font-bold flex rounded-[10px]' onClick={handleNext}>
+                                            SAVE
                                         </div>
                                     </div>
                                 </div>
@@ -100,7 +110,8 @@ const Po = () => {
                                 <input ref={poDateRef} defaultValue={Podata.PoDate} className='text-black bg-gray-500 p-2 4 rounded-2xl' placeholder='PO DATE' type="text" />
                                 <input ref={gstInRef} defaultValue={Podata.GstIn} className='text-black bg-gray-500 p-2 4 rounded-2xl' placeholder='GSTIN' type="text" />
                                 <div className='w-full flex justify-end'>
-                                    <div onClick={handlePo} className='bg-green-400 text-black font-bold rounded-[10px] w-[100px] h-[40px] flex justify-center items-center'>
+                                    <div onClick={handlePo} className='bg-green-400 text-black font-bold rounded-[10px] w-[100px] h-[40px] flex justify-center items-center'
+                                    >
                                         SAVE
                                     </div>
                                 </div>
