@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import Navbar from '../components/Navbar';
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import MaterialInfo from '../components/MaterialInfo';
 const Po = () => {
     const navigate=useNavigate();
     const [Podata, setPodata] = useState({ PO: '', PoDate: '', GstIn: '' });
@@ -9,7 +10,7 @@ const Po = () => {
     const gstInRef = useRef(null);
     const poDateRef = useRef(null);
 
-    const [hide1, setHide1] = useState(true);
+    const [hide1, setHide1] = useState(false);
 
     const notify = (message, icon = "X") =>
         toast.error(message, {
@@ -48,7 +49,7 @@ const Po = () => {
             <div className='w-screen h-screen flex flex-col justify-center items-center space-y-5 text-black'>
                 {
                     hide1 ? (
-                        <>
+                        <div>
                             <div className='max-sm:w-[80%] w-[700px] space-y-6 flex flex-col p-5 7 rounded-[10px]'>
                                 <table className=''>
                                     <thead className='w-full'>
@@ -88,20 +89,20 @@ const Po = () => {
                                 </table>
                                 <div className='w-full flex justify-end gap-3'>
                                     <div className="w-[75px] h-[35px] flex justify-center items-center">
-                                        <div className='w-full h-full bg-red-500 justify-center items-center text-black font-bold flex rounded-[10px]' onClick={toggleNow1}>
+                                        <button className='w-full h-full bg-red-500 justify-center items-center text-black font-bold flex rounded-[10px]' onClick={toggleNow1}>
                                             EDIT
-                                        </div>
+                                        </button>
                                     </div>
                                     <div className="w-[75px] h-[35px] flex justify-center items-center">
-                                        <div className='w-full h-full bg-green-500 justify-center items-center text-black font-bold flex rounded-[10px]' onClick={handleNext}>
+                                        <button className='w-full h-full bg-green-500 justify-center items-center text-black font-bold flex rounded-[10px]' onClick={handleNext}>
                                             SAVE
-                                        </div>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
-                        </>
+                        </div>
                     ) : (
-                        <>
+                        <div>
                             <div className='max-sm:w-[80%] w-[700px] bg-black space-y-6 flex flex-col p-5 7 rounded-[10px] '>
                                 <div className='text-white text-2xl font-bold w-full flex justify-start'>
                                     ADD PO DETAILS
@@ -110,15 +111,18 @@ const Po = () => {
                                 <input ref={poDateRef} defaultValue={Podata.PoDate} className='text-black bg-gray-500 p-2 4 rounded-2xl' placeholder='PO DATE' type="text" />
                                 <input ref={gstInRef} defaultValue={Podata.GstIn} className='text-black bg-gray-500 p-2 4 rounded-2xl' placeholder='GSTIN' type="text" />
                                 <div className='w-full flex justify-end'>
-                                    <div onClick={handlePo} className='bg-green-400 text-black font-bold rounded-[10px] w-[100px] h-[40px] flex justify-center items-center'
+                                    <button onClick={handlePo} className='bg-green-400 text-black font-bold rounded-[10px] w-[100px] h-[40px] flex justify-center items-center'
                                     >
                                         SAVE
-                                    </div>
+                                    </button>
                                 </div>
                             </div>
-                        </>
+                        </div>
                     )
                 }
+            </div>
+            <div>
+            <MaterialInfo />
             </div>
         </>
     );
