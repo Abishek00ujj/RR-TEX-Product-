@@ -3,14 +3,16 @@ import Navbar from '../components/Navbar';
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import MaterialInfo from '../components/MaterialInfo';
+
 const Po = () => {
-    const navigate=useNavigate();
+    const navigate = useNavigate();
     const [Podata, setPodata] = useState({ PO: '', PoDate: '', GstIn: '' });
     const poRef = useRef(null);
     const gstInRef = useRef(null);
     const poDateRef = useRef(null);
 
     const [hide1, setHide1] = useState(false);
+    const [isPoDetailsSaved, setIsPoDetailsSaved] = useState(false); // Track if PO details are saved
 
     const notify = (message, icon = "X") =>
         toast.error(message, {
@@ -18,9 +20,9 @@ const Po = () => {
             icon,
         });
 
-        const handleNext=()=>{
-
-        }
+    const handleNext = () => {
+        navigate("/nextPage"); // Example: navigate to another page
+    };
 
     const handlePo = () => {
         const PO = poRef.current.value.trim();
@@ -34,95 +36,99 @@ const Po = () => {
 
         setPodata({ PO, PoDate, GstIn });
         setHide1(true);
+        setIsPoDetailsSaved(true); // Mark PO details as saved
     };
 
     const toggleNow1 = () => {
         setHide1(!hide1);
     };
 
-    console.table(Podata);
+    const fields = [
+        { label: "PO", value: Podata.PO },
+        { label: "PO DATE", value: Podata.PoDate },
+        { label: "GST IN", value: Podata.GstIn }
+    ];
+
+    const tableRows = fields.map((field, index) => (
+        <tr key={index} className="border-b border-gray-300">
+            <td className="px-4 py-2 text-center">{field.label}</td>
+            <td className="px-4 py-2 text-center">{field.value}</td>
+        </tr>
+    ));
 
     return (
         <>
             <Toaster />
             <Navbar />
-            <div className='w-screen h-screen flex flex-col justify-center items-center space-y-5 text-black'>
-                {
-                    hide1 ? (
-                        <div>
-                            <div className='max-sm:w-[80%] w-[700px] space-y-6 flex flex-col p-5 7 rounded-[10px]'>
-                                <table className=''>
-                                    <thead className='w-full'>
-                                        <tr className='border-black border-[1px]'>
-                                            <th className='border-black border-[1px] p-2 4'>
-                                                NAME
-                                            </th>
-                                            <th className='border-black border-[1px] p-2 4'>
-                                                VALUES
-                                            </th>
-                                        </tr>
-                                        <tr className='border-black border-[1px] p-2 4'>
-                                            <td className='border-black border-[1px] text-center p-2 4'>
-                                                PO
-                                            </td>
-                                            <td className='border-black border-[1px] text-center p-2 4'>
-                                                {Podata.PO}
-                                            </td>
-                                        </tr>
-                                        <tr className='border-black border-[1px] p-2 4'>
-                                            <td className='border-black border-[1px] text-center p-2 4'>
-                                                PO DATE
-                                            </td>
-                                            <td className='border-black border-[1px] text-center p-2 4'>
-                                                {Podata.PoDate}
-                                            </td>
-                                        </tr>
-                                        <tr className='border-black border-[1px] p-2 4'>
-                                            <td className='border-black border-[1px] text-center p-2 4'>
-                                                GST IN
-                                            </td>
-                                            <td className='border-black border-[1px] text-center p-2 4'>
-                                                {Podata.GstIn}
-                                            </td>
-                                        </tr>
-                                    </thead>
-                                </table>
-                                <div className='w-full flex justify-end gap-3'>
-                                    <div className="w-[75px] h-[35px] flex justify-center items-center">
-                                        <button className='w-full h-full bg-red-500 justify-center items-center text-black font-bold flex rounded-[10px]' onClick={toggleNow1}>
-                                            EDIT
-                                        </button>
-                                    </div>
-                                    <div className="w-[75px] h-[35px] flex justify-center items-center">
-                                        <button className='w-full h-full bg-green-500 justify-center items-center text-black font-bold flex rounded-[10px]' onClick={handleNext}>
-                                            SAVE
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
+            <div className="w-screen  flex flex-col justify-center items-center space-y-5 text-black p-4">
+                {/* Show the PO details or PO form */}
+                {hide1 ? (
+                    <div className="max-w-2xl w-full space-y-6 bg-white p-6 rounded-lg shadow-md">
+                        <table className="min-w-full table-auto">
+                            <thead>
+                                <tr className="bg-gray-100">
+                                    <th className="px-4 py-2 text-left">NAME</th>
+                                    <th className="px-4 py-2 text-left">VALUES</th>
+                                </tr>
+                            </thead>
+                            <tbody>{tableRows}</tbody>
+                        </table>
+                        <div className="flex justify-end gap-4 mt-6">
+                            <button
+                                className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-400"
+                                onClick={toggleNow1}
+                            >
+                                EDIT
+                            </button>
+                            <button
+                                className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-400"
+                                onClick={handleNext}
+                            >
+                                SAVE
+                            </button>
                         </div>
-                    ) : (
-                        <div>
-                            <div className='max-sm:w-[80%] w-[700px] bg-black space-y-6 flex flex-col p-5 7 rounded-[10px] '>
-                                <div className='text-white text-2xl font-bold w-full flex justify-start'>
-                                    ADD PO DETAILS
-                                </div>
-                                <input ref={poRef} defaultValue={Podata.PO} className='text-black bg-gray-500 p-2 4 rounded-2xl' placeholder='PO NUMBER' type="text" />
-                                <input ref={poDateRef} defaultValue={Podata.PoDate} className='text-black bg-gray-500 p-2 4 rounded-2xl' placeholder='PO DATE' type="text" />
-                                <input ref={gstInRef} defaultValue={Podata.GstIn} className='text-black bg-gray-500 p-2 4 rounded-2xl' placeholder='GSTIN' type="text" />
-                                <div className='w-full flex justify-end'>
-                                    <button onClick={handlePo} className='bg-green-400 text-black font-bold rounded-[10px] w-[100px] h-[40px] flex justify-center items-center'
-                                    >
-                                        SAVE
-                                    </button>
-                                </div>
-                            </div>
+                    </div>
+                ) : (
+                    <div className="max-w-2xl w-full bg-black space-y-6 flex flex-col p-6 rounded-lg">
+                        <div className="text-white text-2xl font-bold">ADD PO DETAILS</div>
+                        <input
+                            ref={poRef}
+                            defaultValue={Podata.PO}
+                            className="w-full p-3 bg-gray-500 text-black rounded-xl"
+                            placeholder="PO NUMBER"
+                            type="text"
+                        />
+                        <input
+                            ref={poDateRef}
+                            defaultValue={Podata.PoDate}
+                            className="w-full p-3 bg-gray-500 text-black rounded-xl"
+                            placeholder="PO DATE"
+                            type="text"
+                        />
+                        <input
+                            ref={gstInRef}
+                            defaultValue={Podata.GstIn}
+                            className="w-full p-3 bg-gray-500 text-black rounded-xl"
+                            placeholder="GSTIN"
+                            type="text"
+                        />
+                        <div className="flex justify-end">
+                            <button
+                                onClick={handlePo}
+                                className="w-full sm:w-auto px-6 py-3 bg-green-400 text-black font-bold rounded-xl hover:bg-green-300 transition-all"
+                            >
+                                SAVE
+                            </button>
                         </div>
-                    )
-                }
-            </div>
-            <div>
-            <MaterialInfo />
+                    </div>
+                )}
+
+                {/* Conditionally render MaterialInfo after PO details are saved */}
+                {isPoDetailsSaved && (
+                    <div className="w-screen  mt-8">
+                        <MaterialInfo />
+                    </div>
+                )}
             </div>
         </>
     );
