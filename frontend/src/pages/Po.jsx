@@ -6,10 +6,6 @@ import ProductDetails from '../components/ProductDetails';
 
 const Po = () => {
     const [materialInformation, setMaterialInformation] = useState([]);
-
-    const handleMaterialInfoSubmit = (data) => {
-        setMaterialInformation(data);
-    };
     const navigate = useNavigate();
     const [Podata, setPodata] = useState({ PO: '', PoDate: '', GstIn: '' });
     const poRef = useRef(null);
@@ -72,8 +68,8 @@ const Po = () => {
                         <table className="min-w-full table-auto">
                             <thead>
                                 <tr className="bg-gray-100">
-                                    <th className="px-4 py-2 text-left font-semibold">NAME</th>
-                                    <th className="px-4 py-2 text-left font-semibold">VALUES</th>
+                                    <th className="px-4 py-2 font-semibold text-center">NAME</th>
+                                    <th className="px-4 py-2 font-semibold text-center">VALUES</th>
                                 </tr>
                             </thead>
                             <tbody>{tableRows}</tbody>
@@ -85,12 +81,6 @@ const Po = () => {
                             >
                                 Edit
                             </button>
-                            {/* <button
-                                className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-400"
-                                onClick={handleNext}
-                            >
-                                Save
-                            </button> */}
                         </div>
                     </div>
                 ) : (
@@ -130,8 +120,8 @@ const Po = () => {
 
                 {isPoDetailsSaved && (
                     <div className="w-screen mt-8">
-                         <div className="text-black text-2xl font-semibold text-center">Material Info</div>
-                        <ProductDetails materialInfo={materialInformation} />
+                        <div className="text-black text-2xl font-semibold text-center">Material Info</div>
+                        <ProductDetails materialInfo={materialInformation} podata={Podata} />
                     </div>
                 )}
             </div>

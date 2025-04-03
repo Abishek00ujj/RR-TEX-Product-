@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
-const ProductDetails = () => {
+import { useNavigate } from 'react-router-dom';
+const ProductDetails = ({podata}) => {
     // --- State Definitions ---
+    const navigate = useNavigate(); 
     const [materialSNo, setMaterialSNo] = useState(1);
     const [materialInfo, setMaterialInfo] = useState([]);
     const [materials, setMaterials] = useState([{}]);
@@ -264,6 +266,7 @@ const ProductDetails = () => {
     // --- SAVE ALL ---
     const handleSaveAll = () => {
         const allDetails = {
+            poData: podata,
             materialInfo: materialInfo,
             productDetails: productDetails,
             colorDetails: colorDetails,
@@ -273,7 +276,9 @@ const ProductDetails = () => {
         };
         console.log("--- ALL PRODUCT DETAILS ---");
         console.log(JSON.stringify(allDetails, null, 2));
-        alert("All details logged to the console!");
+        
+        // Navigate to ProductSummary and pass the details
+        navigate('/product-summary', { state: allDetails });
     };
 
     // --- Render JSX ---
@@ -399,7 +404,7 @@ const ProductDetails = () => {
                         value={productDetails.fabric}
                         onChange={handleProductDetailChange}
                         className="p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        placeholder="Fabric"
+                        placeholder="Fabric"productDetails
                     />
                 </div>
             </div>
