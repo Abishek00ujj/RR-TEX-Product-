@@ -75,9 +75,8 @@ const ProductDetails = () => {
     };
 
     // --- Helper Functions ---
-    // Generate default price structure for a given color name
     const createDefaultPriceEntry = (colorName) => ({
-        color: colorName || 'N/A', // Use color name as identifier
+        color: colorName || 'N/A',
         s: '',
         m: '',
         l: '',
@@ -101,26 +100,22 @@ const ProductDetails = () => {
                 pieceWeight: ''
             }));
             setColorDetails(initialColorDetails);
-            // Initialize price details with default structure for each color
             const initialPriceDetails = uniqueColors.map(createDefaultPriceEntry);
             setPriceDetails(initialPriceDetails);
         }
     }, [materialInfo]);
 
     // --- Event Handlers ---
-    // Product Details Input Change
     const handleProductDetailChange = (e) => {
         setProductDetails({ ...productDetails, [e.target.name]: e.target.value });
     };
 
-    // Color Details Table Input Change (Inline Editing)
     const handleColorDetailChange = (index, e) => {
         const { name, value } = e.target;
         const updatedColorDetails = [...colorDetails];
         const oldColorName = updatedColorDetails[index].color;
         updatedColorDetails[index] = { ...updatedColorDetails[index], [name]: value };
         setColorDetails(updatedColorDetails);
-        // If the color name itself changed, update the corresponding price entry
         if (name === 'color') {
             const updatedPriceDetails = priceDetails.map(price =>
                 price.color === oldColorName ? { ...price, color: value } : price
@@ -129,7 +124,6 @@ const ProductDetails = () => {
         }
     };
 
-    // Price Details Table Input Change
     const handlePriceDetailChange = (colorName, size, e) => {
         const { value } = e.target;
         const updatedPriceDetails = priceDetails.map(price =>
@@ -138,12 +132,10 @@ const ProductDetails = () => {
         setPriceDetails(updatedPriceDetails);
     };
 
-    // GST Details Input Change
     const handleGstDetailChange = (e) => {
         setGstDetails({ ...gstDetails, [e.target.name]: e.target.value });
     };
 
-    // Accessories Table Input Change (Inline Editing)
     const handleAccessoryChange = (index, e) => {
         const updatedAccessories = [...accessoriesDetails];
         updatedAccessories[index] = { ...updatedAccessories[index], [e.target.name]: e.target.value };
@@ -473,11 +465,6 @@ const ProductDetails = () => {
                         </tbody>
                     </table>
                 </div>
-                <div className="flex justify-end mt-4">
-                    <button onClick={handleAddNewColorClick} className="bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded px-4 py-2 transition duration-150 ease-in-out">
-                        Add New Color
-                    </button>
-                </div>
             </div>
 
             {/* Price Details Section */}
@@ -590,7 +577,7 @@ const ProductDetails = () => {
                                         <input type="text" name="size" value={accessory.size || ''} onChange={(e) => handleAccessoryChange(index, e)} className="p-1 border rounded w-16 focus:outline-none focus:ring-1 focus:ring-blue-400" />
                                     </td>
                                     <td className="px-3 py-2 border border-gray-300 text-center text-sm">
-                                        <input type="number" name="quantity" value={accessory.quantity || ''} onChange={(e) => handleAccessoryChange(index, e)} className="p-1 border rounded w-20 text-center focus:outline-none focus:ring-1 focus:ring-blue-400" />
+                                    <input type="number" name="quantity" value={accessory.quantity || ''} onChange={(e) => handleAccessoryChange(index, e)} className="p-1 border rounded w-20 text-center focus:outline-none focus:ring-1 focus:ring-blue-400" />
                                     </td>
                                     <td className="px-3 py-2 border border-gray-300 text-sm">
                                         <input type="text" name="UOM" value={accessory.UOM || ''} onChange={(e) => handleAccessoryChange(index, e)} className="p-1 border rounded w-16 focus:outline-none focus:ring-1 focus:ring-blue-400" />
@@ -617,6 +604,31 @@ const ProductDetails = () => {
                         Add New Accessory
                     </button>
                 </div>
+
+                {/* Form for Adding/Editing Accessory */}
+                {isAddingOrEditingAccessory && (
+                    <div className="bg-white p-4 mt-4 rounded-lg shadow-md">
+                        <h2 className="text-lg font-semibold mb-4">{editAccessoryIndex !== null ? 'Edit Accessory' : 'Add New Accessory'}</h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input type="text" name="material" value={newAccessory.material || ''} onChange={handleNewAccessoryInputChange} className="p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Material" />
+                            <input type="text" name="hsnCode" value={newAccessory.hsnCode || ''} onChange={handleNewAccessoryInputChange} className="p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="HSN Code" />
+                            <input type="text" name="description" value={newAccessory.description || ''} onChange={handleNewAccessoryInputChange} className="p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Description" />
+                            <input type="text" name="color" value={newAccessory.color || ''} onChange={handleNewAccessoryInputChange} className="p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Color" />
+                            <input type="text" name="size" value={newAccessory.size || ''} onChange={handleNewAccessoryInputChange} className="p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Size" />
+                            <input type="number" name="quantity" value={newAccessory.quantity || ''} onChange={handleNewAccessoryInputChange} className="p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Quantity" />
+                            <input type="text" name="UOM" value={newAccessory.UOM || ''} onChange={handleNewAccessoryInputChange} className="p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="UOM" />
+                            <input type="number" step="0.01" name="amount" value={newAccessory.amount || ''} onChange={handleNewAccessoryInputChange} className="p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Amount" />
+                        </div>
+                        <div className="flex justify-end mt-4">
+                            <button onClick={handleSaveOrUpdateAccessory} className="bg-green-400 text-black font-semibold rounded px-4 py-2">
+                                {editAccessoryIndex !== null ? 'Update Accessory' : 'Save Accessory'}
+                            </button>
+                            <button onClick={handleCancelAccessory} className="bg-red-400 text-black font-semibold rounded px-4 py-2 ml-2">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                )}
             </div>
 
             {/* Save All Button */}

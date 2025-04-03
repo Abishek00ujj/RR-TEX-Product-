@@ -2,7 +2,6 @@ import React, { useState, useRef } from 'react';
 import Navbar from '../components/Navbar';
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import MaterialInfo from '../components/MaterialInfo';
 import ProductDetails from '../components/ProductDetails';
 
 const Po = () => {
