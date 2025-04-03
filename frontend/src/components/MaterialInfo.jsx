@@ -92,10 +92,13 @@ const MaterialInfo = () => {
                         ))}
                     </tbody>
                 </table>
-                <div className="flex justify-end mt-4">
+                {/* <div className="flex justify-end mt-4">
+                    <button onClick={addNewRow} className="bg-blue-400 text-black font-semibold rounded px-4 py-2">Add Row</button>
+                </div> */}
+            </div>
+            <div className="flex justify-end mt-4">
                     <button onClick={addNewRow} className="bg-blue-400 text-black font-semibold rounded px-4 py-2">Add Row</button>
                 </div>
-            </div>
             {isAddingNewRow && (
                 <div className="bg-white p-6 mt-6 rounded-lg shadow-md">
                     <h2 className="text-xl font-semibold mb-4">Add New Material</h2>

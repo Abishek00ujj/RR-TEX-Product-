@@ -42,7 +42,7 @@ const ProductDetails = () => {
     return (
         <div className="p-6 max-w-screen-lg mx-auto">
             <div className="bg-white p-6 rounded-lg shadow-md mb-6">
-                <h2 className="text-xl font-semibold mb-4">Product Details</h2>
+                <h2 className="text-xl font-semibold mb-4 text-center">Product Details</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <input
                         name="group"
@@ -69,7 +69,7 @@ const ProductDetails = () => {
             </div>
 
             <div className="bg-white p-6 rounded-lg shadow-md">
-                <h2 className="text-xl font-semibold mb-4">Color Details</h2>
+                <h2 className="text-xl font-semibold mb-4 text-center">Color Details</h2>
                 <table className="min-w-full border-collapse">
                     <thead>
                         <tr className="bg-gray-100">
@@ -174,7 +174,7 @@ const ProductDetails = () => {
 
             {isAddingNewColor && (
                 <div className="bg-white p-6 mt-6 rounded-lg shadow-md">
-                    <h2 className="text-xl font-semibold mb-4">Add New Color</h2>
+                    <h2 className="text-xl font-semibold mb-4 text-center">Add New Color</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <input
                             name="color"

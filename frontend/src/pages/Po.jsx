@@ -81,18 +81,18 @@ const Po = () => {
                             >
                                 Edit
                             </button>
-                            <button
+                            {/* <button
                                 className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-400"
                                 onClick={handleNext}
                             >
                                 Save
-                            </button>
+                            </button> */}
                         </div>
                     </div>
                 ) : (
                     <div className="max-w-2xl w-full bg-white space-y-6 flex flex-col p-6 rounded-lg shadow-md">
                         <div className="text-black text-2xl font-semibold">Add PO Details</div>
-                        <input
+                        <input	
                             ref={poRef}
                             defaultValue={Podata.PO}
                             className="w-full p-3 border rounded-xl"
