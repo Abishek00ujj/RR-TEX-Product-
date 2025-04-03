@@ -5,22 +5,21 @@ const MaterialInfo = () => {
     const [materialInfo, setMaterialInfo] = useState([]);
     const [materials, setMaterials] = useState([{}]);
     const [editIndex, setEditIndex] = useState(null);
+    const [editedMaterial, setEditedMaterial] = useState({});
     const [isAddingNewRow, setIsAddingNewRow] = useState(false);
 
     const handleMaterial = () => {
-        const newMaterials = materials.map((_, index) => {
-            return {
-                materialSNo: materialSNo + index,
-                materialName: document.getElementById(`materialName-${index}`).value.trim(),
-                materialHSNCode: document.getElementById(`materialHSNCode-${index}`).value.trim(),
-                materialDescription: document.getElementById(`materialDescription-${index}`).value.trim(),
-                materialColour: document.getElementById(`materialColour-${index}`).value.trim(),
-                materialRou: document.getElementById(`materialRou-${index}`).value.trim(),
-                materialQuantity: document.getElementById(`materialQuantity-${index}`).value.trim(),
-                materialUom: document.getElementById(`materialUom-${index}`).value.trim(),
-                materialAmount: document.getElementById(`materialAmount-${index}`).value.trim(),
-            };
-        });
+        const newMaterials = materials.map((_, index) => ({
+            materialSNo: materialSNo + index,
+            materialName: document.getElementById(`materialName-${index}`).value.trim(),
+            materialHSNCode: document.getElementById(`materialHSNCode-${index}`).value.trim(),
+            materialDescription: document.getElementById(`materialDescription-${index}`).value.trim(),
+            materialColour: document.getElementById(`materialColour-${index}`).value.trim(),
+            materialRou: document.getElementById(`materialRou-${index}`).value.trim(),
+            materialQuantity: document.getElementById(`materialQuantity-${index}`).value.trim(),
+            materialUom: document.getElementById(`materialUom-${index}`).value.trim(),
+            materialAmount: document.getElementById(`materialAmount-${index}`).value.trim(),
+        }));
 
         setMaterialInfo([...materialInfo, ...newMaterials]);
         setMaterialSNo(materialSNo + materials.length);
@@ -34,18 +33,22 @@ const MaterialInfo = () => {
 
     const handleEdit = (index) => {
         setEditIndex(index);
+        setEditedMaterial(materialInfo[index]); // Store original data before editing
+    };
+
+    const handleInputChange = (e, key) => {
+        setEditedMaterial({ ...editedMaterial, [key]: e.target.value });
     };
 
     const handleSaveEdit = (index) => {
         const updatedMaterialInfo = [...materialInfo];
-        updatedMaterialInfo[index] = { ...updatedMaterialInfo[index], edit: false };
+        updatedMaterialInfo[index] = editedMaterial;
         setMaterialInfo(updatedMaterialInfo);
         setEditIndex(null);
     };
 
     const handleRemove = (index) => {
-        const updatedMaterialInfo = materialInfo.filter((_, i) => i !== index);
-        setMaterialInfo(updatedMaterialInfo);
+        setMaterialInfo(materialInfo.filter((_, i) => i !== index));
     };
 
     return (
@@ -73,7 +76,12 @@ const MaterialInfo = () => {
                                     key !== "edit" && (
                                         <td key={key} className="px-4 py-2 text-center">
                                             {editIndex === index ? (
-                                                <input type="text" defaultValue={material[key]} className="border p-1" />
+                                                <input 
+                                                    type="text" 
+                                                    value={editedMaterial[key] || ""} 
+                                                    onChange={(e) => handleInputChange(e, key)} 
+                                                    className="border p-1"
+                                                />
                                             ) : (
                                                 material[key]
                                             )}
@@ -82,23 +90,39 @@ const MaterialInfo = () => {
                                 ))}
                                 <td className="px-4 py-2 text-center">
                                     {editIndex === index ? (
-                                        <button onClick={() => handleSaveEdit(index)} className="bg-green-400 text-black font-semibold rounded px-2 py-1">Save</button>
+                                        <button 
+                                            onClick={() => handleSaveEdit(index)} 
+                                            className="bg-green-400 text-black font-semibold rounded px-2 py-1"
+                                        >
+                                            Save
+                                        </button>
                                     ) : (
-                                        <button onClick={() => handleEdit(index)} className="bg-blue-400 text-black font-semibold rounded px-2 py-1">Edit</button>
+                                        <button 
+                                            onClick={() => handleEdit(index)} 
+                                            className="bg-blue-400 text-black font-semibold rounded px-2 py-1"
+                                        >
+                                            Edit
+                                        </button>
                                     )}
-                                    <button onClick={() => handleRemove(index)} className="bg-red-400 text-black font-semibold rounded px-2 py-1 ml-2">Remove</button>
+                                    <button 
+                                        onClick={() => handleRemove(index)} 
+                                        className="bg-red-400 text-black font-semibold rounded px-2 py-1 ml-2"
+                                    >
+                                        Remove
+                                    </button>
                                 </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
-                {/* <div className="flex justify-end mt-4">
-                    <button onClick={addNewRow} className="bg-blue-400 text-black font-semibold rounded px-4 py-2">Add Row</button>
-                </div> */}
             </div>
+
             <div className="flex justify-end mt-4">
-                    <button onClick={addNewRow} className="bg-blue-400 text-black font-semibold rounded px-4 py-2">Add Row</button>
-                </div>
+                <button onClick={addNewRow} className="bg-blue-400 text-black font-semibold rounded px-4 py-2">
+                    Add Row
+                </button>
+            </div>
+
             {isAddingNewRow && (
                 <div className="bg-white p-6 mt-6 rounded-lg shadow-md">
                     <h2 className="text-xl font-semibold mb-4">Add New Material</h2>
@@ -115,7 +139,9 @@ const MaterialInfo = () => {
                         </div>
                     ))}
                     <div className="flex justify-end mt-6">
-                        <button onClick={handleMaterial} className="bg-green-400 text-black font-semibold rounded px-4 py-2">Save Material</button>
+                        <button onClick={handleMaterial} className="bg-green-400 text-black font-semibold rounded px-4 py-2">
+                            Save Material
+                        </button>
                     </div>
                 </div>
             )}
@@ -124,8 +150,3 @@ const MaterialInfo = () => {
 };
 
 export default MaterialInfo;
-
-
-
-
-

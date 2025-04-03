@@ -6,6 +6,11 @@ import MaterialInfo from '../components/MaterialInfo';
 import ProductDetails from '../components/ProductDetails';
 
 const Po = () => {
+    const [materialInformation, setMaterialInformation] = useState([]);
+
+    const handleMaterialInfoSubmit = (data) => {
+        setMaterialInformation(data);
+    };
     const navigate = useNavigate();
     const [Podata, setPodata] = useState({ PO: '', PoDate: '', GstIn: '' });
     const poRef = useRef(null);
@@ -127,9 +132,7 @@ const Po = () => {
                 {isPoDetailsSaved && (
                     <div className="w-screen mt-8">
                          <div className="text-black text-2xl font-semibold text-center">Material Info</div>
-                        <MaterialInfo />
-                        <div className="text-black text-2xl font-semibold mt-8 text-center">Product Details</div>
-                        <ProductDetails />
+                        <ProductDetails materialInfo={materialInformation} />
                     </div>
                 )}
             </div>
