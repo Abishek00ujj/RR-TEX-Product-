@@ -76,24 +76,23 @@ const ProductSummary = () => {
             {/* Color Details with Calculated Pieces */}
             <div className="bg-white p-4 rounded-lg shadow-md">
                 <h3 className="text-lg font-semibold mb-2">Color Details</h3>
-                <table className="min-w-full border-collapse">
-                    <thead>
-                        <tr className="bg-gray-100">
-                            <th className="px-3 py-2">Color</th>
-                            <th className="px-3 py-2">S</th>
-                            <th className="px-3 py-2">M</th>
-                            <th className="px-3 py-2">L</th>
-                            <th className="px-3 py-2">XL</th>
-                            <th className="px-3 py-2">2XL</th>
-                            <th className="px-3 py-2">Total Pieces</th>
-                            <th className="px-3 py-2">Piece Weight (kg)</th>
-                            <th className="px-3 py-2">Estimated Material Weight (KG)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {calculatedData.map((color, index) => {
-                            const priceDetail = priceDetails.find(price => price.color === color.color) || {};
-                            return (
+                <div className="overflow-x-auto">
+                    <table className="min-w-full border-collapse">
+                        <thead>
+                            <tr className="bg-gray-100">
+                                <th className="px-3 py-2">Color</th>
+                                <th className="px-3 py-2">S</th>
+                                <th className="px-3 py-2">M</th>
+                                <th className="px-3 py-2">L</th>
+                                <th className="px-3 py-2">XL</th>
+                                <th className="px-3 py-2">2XL</th>
+                                <th className="px-3 py-2">Total Pieces</th>
+                                <th className="px-3 py-2">Piece Weight (kg)</th>
+                                <th className="px-3 py-2">Estimated Material Weight (KG)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {calculatedData.map((color, index) => (
                                 <tr key={index} className="border-b border-gray-300">
                                     <td className="px-3 py-2">{color.color}</td>
                                     <td className="px-3 py-2">{color.s || 0}</td>
@@ -105,39 +104,41 @@ const ProductSummary = () => {
                                     <td className="px-3 py-2">{color.pieceWeight}</td>
                                     <td className="px-3 py-2">{color.estimatedMaterialWeight}</td>
                                 </tr>
-                            );
-                        })}
-                    </tbody>
-                </table>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             {/* Price Details */}
             <div className="bg-white p-4 rounded-lg shadow-md">
                 <h3 className="text-lg font-semibold mb-2">Price Details</h3>
-                <table className="min-w-full border-collapse">
-                    <thead>
-                        <tr className="bg-gray-100">
-                            <th className="px-3 py-2">Color</th>
-                            <th className="px-3 py-2">S Price</th>
-                            <th className="px-3 py-2">M Price</th>
-                            <th className="px-3 py-2">L Price</th>
-                            <th className="px-3 py-2">XL Price</th>
-                            <th className="px-3 py-2">2XL Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {priceDetails.map((priceEntry, index) => (
-                            <tr key={index} className="border-b border-gray-300">
-                                <td className="px-3 py-2">{priceEntry.color}</td>
-                                <td className="px-3 py-2">{priceEntry.s}</td>
-                                <td className="px-3 py-2">{priceEntry.m}</td>
-                                <td className="px-3 py-2">{priceEntry.l}</td>
-                                <td className="px-3 py-2">{priceEntry.xl}</td>
-                                <td className="px-3 py-2">{priceEntry['2xl']}</td>
+                <div className="overflow-x-auto">
+                    <table className="min-w-full border-collapse">
+                        <thead>
+                            <tr className="bg-gray-100">
+                                <th className="px-3 py-2">Color</th>
+                                <th className="px-3 py-2">S Price</th>
+                                <th className="px-3 py-2">M Price</th>
+                                <th className="px-3 py-2">L Price</th>
+                                <th className="px-3 py-2">XL Price</th>
+                                <th className="px-3 py-2">2XL Price</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {priceDetails.map((priceEntry, index) => (
+                                <tr key={index} className="border-b border-gray-300">
+                                    <td className="px-3 py-2">{priceEntry.color}</td>
+                                    <td className="px-3 py-2">{priceEntry.s}</td>
+                                    <td className="px-3 py-2">{priceEntry.m}</td>
+                                    <td className="px-3 py-2">{priceEntry.l}</td>
+                                    <td className="px-3 py-2">{priceEntry.xl}</td>
+                                    <td className="px-3 py-2">{priceEntry['2xl']}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             {/* GST Details */}
@@ -150,36 +151,38 @@ const ProductSummary = () => {
             {/* Accessories Details */}
             <div className="bg-white p-4 rounded-lg shadow-md">
                 <h3 className="text-lg font-semibold mb-2">Accessories Details</h3>
-                <table className="min-w-full border-collapse">
-                    <thead>
-                        <tr className="bg-gray-100">
-                            <th className="px-3 py-2">SNO</th>
-                            <th className="px-3 py-2">Material</th>
-                            <th className="px-3 py-2">HSN Code</th>
-                            <th className="px-3 py-2">Description</th>
-                            <th className="px-3 py-2">Color</th>
-                            <th className="px-3 py-2">Size</th>
-                            <th className="px-3 py-2">Quantity</th>
-                            <th className="px-3 py-2">UOM</th>
-                            <th className="px-3 py-2">Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {accessoriesDetails.map((accessory, index) => (
-                            <tr key={index} className="border-b border-gray-300">
-                                <td className="px-3 py-2">{accessory.sno}</td>
-                                <td className="px-3 py-2">{accessory.material}</td>
-                                <td className="px-3 py-2">{accessory.hsnCode}</td>
-                                <td className="px-3 py-2">{accessory.description}</td>
-                                <td className="px-3 py-2">{accessory.color}</td>
-                                <td className="px-3 py-2">{accessory.size}</td>
-                                <td className="px-3 py-2">{accessory.quantity}</td>
-                                <td className="px-3 py-2">{accessory.UOM}</td>
-                                <td className="px-3 py-2">{accessory.amount}</td>
+                <div className="overflow-x-auto">
+                    <table className="min-w-full border-collapse">
+                        <thead>
+                            <tr className="bg-gray-100">
+                                <th className="px-3 py-2">SNO</th>
+                                <th className="px-3 py-2">Material</th>
+                                <th className="px-3 py-2">HSN Code</th>
+                                <th className="px-3 py-2">Description</th>
+                                <th className="px-3 py-2">Color</th>
+                                <th className="px-3 py-2">Size</th>
+                                <th className="px-3 py-2">Quantity</th>
+                                <th className="px-3 py-2">UOM</th>
+                                <th className="px-3 py-2">Amount</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {accessoriesDetails.map((accessory, index) => (
+                                <tr key={index} className="border-b border-gray-300">
+                                    <td className="px-3 py-2">{accessory.sno}</td>
+                                    <td className="px-3 py-2">{accessory.material}</td>
+                                    <td className="px-3 py-2">{accessory.hsnCode}</td>
+                                    <td className="px-3 py-2">{accessory.description}</td>
+                                    <td className="px-3 py-2">{accessory.color}</td>
+                                    <td className="px-3 py-2">{accessory.size}</td>
+                                    <td className="px-3 py-2">{accessory.quantity}</td>
+                                    <td className="px-3 py-2">{accessory.UOM}</td>
+                                    <td className="px-3 py-2">{accessory.amount}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     );
