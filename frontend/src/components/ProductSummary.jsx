@@ -12,11 +12,45 @@ const ProductSummary = () => {
         gstDetails = {},
         accessoriesDetails = [],
     } = location.state || {}; 
-    console.log(JSON.stringify(productDetails));
+
+    let warningMessage = "";
+
+    // Calculate total required material weight
+    const calculatedData = colorDetails.map(color => {
+        const totalPieces = color.s + color.m + color.l + color.xl + (color["2xl"] || 0);
+        const pieceWeight = color.pieceWeight;
+        let estimatedMaterialWeight = totalPieces * pieceWeight;
+        
+        return {
+            ...color,
+            totalPieces,
+            estimatedMaterialWeight
+        };
+    });
+
+    // Check material weight feasibility
+    const materialWeight = materialInfo.reduce((acc, material) => {
+        if (material.materialUom.toLowerCase() === "kg") {
+            return acc + material.materialQuantity;
+        }
+        return acc;
+    }, 0);
+
+    const totalEstimatedWeight = calculatedData.reduce((acc, item) => acc + item.estimatedMaterialWeight, 0);
+    
+    if (totalEstimatedWeight > materialWeight) {
+        warningMessage = `Warning: The total estimated material weight (${totalEstimatedWeight} KG) exceeds the available material weight (${materialWeight} KG).`;
+    }
+
     return (
         <div className="p-4 md:p-6 max-w-screen-xl mx-auto space-y-6">
             <h2 className="text-2xl font-semibold mb-4 text-center">Product Summary</h2>
-
+            {warningMessage && (
+                <div className="bg-red-200 text-red-800 p-3 rounded-md">
+                    {warningMessage}
+                </div>
+            )}
+            
             {/* PO Details Section */}
             <div className="bg-white p-4 rounded-lg shadow-md mb-6">
                 <h3 className="text-lg font-semibold mb-2">PO Details</h3>
@@ -36,69 +70,43 @@ const ProductSummary = () => {
             {/* Material Information */}
             <div className="bg-white p-4 rounded-lg shadow-md">
                 <h3 className="text-lg font-semibold mb-2">Material Information</h3>
-                <table className="min-w-full border-collapse">
-                    <thead>
-                        <tr className="bg-gray-100">
-                            <th className="px-4 py-2">SNO</th>
-                            <th className="px-4 py-2">Material Name</th>
-                            <th className="px-4 py-2">HSN Code</th>
-                            <th className="px-4 py-2">Description</th>
-                            <th className="px-4 py-2">Colour</th>
-                            <th className="px-4 py-2">ROLL</th>
-                            <th className="px-4 py-2">Quantity</th>
-                            <th className="px-4 py-2">UOM</th>
-                            <th className="px-4 py-2">Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {materialInfo.map((material, index) => (
-                            <tr key={index} className="border-b border-gray-300">
-                                <td className="px-4 py-2 text-center">{material.materialSNo}</td>
-                                <td className="px-4 py-2 text-center">{material.materialName}</td>
-                                <td className="px-4 py-2 text-center">{material.materialHSNCode}</td>
-                                <td className="px-4 py-2 text-center">{material.materialDescription}</td>
-                                <td className="px-4 py-2 text-center">{material.materialColour}</td>
-                                <td className="px-4 py-2 text-center">{material.materialRou}</td>
-                                <td className="px-4 py-2 text-center">{material.materialQuantity}</td>
-                                <td className="px-4 py-2 text-center">{material.materialUom}</td>
-                                <td className="px-4 py-2 text-center">{material.materialAmount}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                <p><strong>Total Material Weight (KG):</strong> {materialWeight}</p>
             </div>
 
-            {/* Color Details */}
+            {/* Color Details with Calculated Pieces */}
             <div className="bg-white p-4 rounded-lg shadow-md">
                 <h3 className="text-lg font-semibold mb-2">Color Details</h3>
                 <table className="min-w-full border-collapse">
                     <thead>
                         <tr className="bg-gray-100">
-                            <th className="px-3 py-2">SNO</th>
                             <th className="px-3 py-2">Color</th>
                             <th className="px-3 py-2">S</th>
                             <th className="px-3 py-2">M</th>
                             <th className="px-3 py-2">L</th>
                             <th className="px-3 py-2">XL</th>
                             <th className="px-3 py-2">2XL</th>
-                            <th className="px-3 py-2">Total Qty</th>
-                            <th className="px-3 py-2">Piece Wgt (kg)</th>
+                            <th className="px-3 py-2">Total Pieces</th>
+                            <th className="px-3 py-2">Piece Weight (kg)</th>
+                            <th className="px-3 py-2">Estimated Material Weight (KG)</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {colorDetails.map((color, index) => (
-                            <tr key={index} className="border-b border-gray-300">
-                                <td className="px-3 py-2 text-center">{color.sno}</td>
-                                <td className="px-3 py-2 text-center">{color.color}</td>
-                                <td className="px-3 py-2 text-center">{color.s}</td>
-                                <td className="px-3 py-2 text-center">{color.m}</td>
-                                <td className="px-3 py-2 text-center">{color.l}</td>
-                                <td className="px-3 py-2 text-center">{color.xl}</td>
-                                <td className="px-3 py-2 text-center">{color['2xl']}</td>
-                                <td className="px-3 py-2 text-center">{color.qty}</td>
-                                <td className="px-3 py-2 text-center">{color.pieceWeight}</td>
-                            </tr>
-                        ))}
+                        {calculatedData.map((color, index) => {
+                            const priceDetail = priceDetails.find(price => price.color === color.color) || {};
+                            return (
+                                <tr key={index} className="border-b border-gray-300">
+                                    <td className="px-3 py-2">{color.color}</td>
+                                    <td className="px-3 py-2">{color.s || 0}</td>
+                                    <td className="px-3 py-2">{color.m || 0}</td>
+                                    <td className="px-3 py-2">{color.l || 0}</td>
+                                    <td className="px-3 py-2">{color.xl || 0}</td>
+                                    <td className="px-3 py-2">{color["2xl"] || 0}</td>
+                                    <td className="px-3 py-2">{color.totalPieces}</td>
+                                    <td className="px-3 py-2">{color.pieceWeight}</td>
+                                    <td className="px-3 py-2">{color.estimatedMaterialWeight}</td>
+                                </tr>
+                            );
+                        })}
                     </tbody>
                 </table>
             </div>
@@ -154,9 +162,9 @@ const ProductSummary = () => {
                             <th className="px-3 py-2">Quantity</th>
                             <th className="px-3 py-2">UOM</th>
                             <th className="px-3 py-2">Amount</th>
-                       </tr>
+                        </tr>
                     </thead>
-                     <tbody> 
+                    <tbody>
                         {accessoriesDetails.map((accessory, index) => (
                             <tr key={index} className="border-b border-gray-300">
                                 <td className="px-3 py-2">{accessory.sno}</td>
