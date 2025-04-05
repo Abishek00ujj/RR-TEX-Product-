@@ -21,10 +21,6 @@ const Po = () => {
             icon,
         });
 
-    const handleNext = () => {
-        navigate("/nextPage");
-    };
-
     const handlePo = () => {
         const PO = poRef.current.value.trim();
         const PoDate = poDateRef.current.value.trim();

@@ -1,8 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const ProductSummary = () => {
+    const [redirect,setRedirect]=useState(false);
+     const navigate = useNavigate();
     const location = useLocation();
     const {
         poData = {},
@@ -62,6 +65,11 @@ const ProductSummary = () => {
         // after a successful API call.
         toast.success('PO data is saved successfully!');
     }, []); // Empty dependency array means this effect runs once after the initial render
+
+    if(redirect)
+    {
+        navigate("/home");
+    }
 
     return (
         <div className="p-4 md:p-6 max-w-screen-xl mx-auto space-y-6">
@@ -204,6 +212,13 @@ const ProductSummary = () => {
                         </tbody>
                     </table>
                 </div>
+            </div>
+            <div className=' flex justify-end items-center w-full h-full'>
+                <button onClick={()=>{
+                    setRedirect(true);
+                }} className='w-[100px] h-[50px] bg-green-400 rounded-[10px]'>
+                       BACK
+                </button>
             </div>
         </div>
     );
