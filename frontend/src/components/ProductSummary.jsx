@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const ProductSummary = () => {
     const location = useLocation();
@@ -55,6 +56,13 @@ const ProductSummary = () => {
         warningMessage = `Warning: The total estimated material weight (${totalEstimatedWeight.toFixed(2)} KG) exceeds the available material weight (${materialWeight.toFixed(2)} KG).`;
     }
 
+    useEffect(() => {
+        // Simulate PO data being saved successfully before navigating to this summary page
+        // In a real application, you might trigger this toast based on a state change
+        // after a successful API call.
+        toast.success('PO data is saved successfully!');
+    }, []); // Empty dependency array means this effect runs once after the initial render
+
     return (
         <div className="p-4 md:p-6 max-w-screen-xl mx-auto space-y-6">
             <h2 className="text-2xl font-semibold mb-4 text-center">Product Summary</h2>
@@ -107,15 +115,15 @@ const ProductSummary = () => {
                         <tbody>
                             {calculatedData.map((color, index) => (
                                 <tr key={index} className="border-b border-gray-300">
-                                    <td className="px-3 py-2">{color.color}</td>
-                                    <td className="px-3 py-2">{color.s}</td>
-                                    <td className="px-3 py-2">{color.m}</td>
-                                    <td className="px-3 py-2">{color.l}</td>
-                                    <td className="px-3 py-2">{color.xl}</td>
-                                    <td className="px-3 py-2">{color["2xl"]}</td>
-                                    <td className="px-3 py-2">{color.totalPieces}</td>
-                                    <td className="px-3 py-2">{color.pieceWeight}</td>
-                                    <td className="px-3 py-2">{color.estimatedMaterialWeight.toFixed(2)}</td>
+                                    <td className="px-3 py-2 text-center">{color.color}</td>
+                                    <td className="px-3 py-2 text-center">{color.s}</td>
+                                    <td className="px-3 py-2 text-center">{color.m}</td>
+                                    <td className="px-3 py-2 text-center">{color.l}</td>
+                                    <td className="px-3 py-2 text-center">{color.xl}</td>
+                                    <td className="px-3 py-2 text-center">{color["2xl"]}</td>
+                                    <td className="px-3 py-2 text-center">{color.totalPieces}</td>
+                                    <td className="px-3 py-2 text-center">{color.pieceWeight}</td>
+                                    <td className="px-3 py-2 text-center">{color.estimatedMaterialWeight.toFixed(2)}</td>
                                 </tr>
                             ))}
                         </tbody>
@@ -141,12 +149,12 @@ const ProductSummary = () => {
                         <tbody>
                             {priceDetails.map((priceEntry, index) => (
                                 <tr key={index} className="border-b border-gray-300">
-                                    <td className="px-3 py-2">{priceEntry.color}</td>
-                                    <td className="px-3 py-2">{priceEntry.s}</td>
-                                    <td className="px-3 py-2">{priceEntry.m}</td>
-                                    <td className="px-3 py-2">{priceEntry.l}</td>
-                                    <td className="px-3 py-2">{priceEntry.xl}</td>
-                                    <td className="px-3 py-2">{priceEntry['2xl']}</td>
+                                    <td className="px-3 py-2 text-center">{priceEntry.color}</td>
+                                    <td className="px-3 py-2 text-center">{priceEntry.s}</td>
+                                    <td className="px-3 py-2 text-center">{priceEntry.m}</td>
+                                    <td className="px-3 py-2 text-center">{priceEntry.l}</td>
+                                    <td className="px-3 py-2 text-center">{priceEntry.xl}</td>
+                                    <td className="px-3 py-2 text-center">{priceEntry['2xl']}</td>
                                 </tr>
                             ))}
                         </tbody>
@@ -182,15 +190,15 @@ const ProductSummary = () => {
                         <tbody>
                             {accessoriesDetails.map((accessory, index) => (
                                 <tr key={index} className="border-b border-gray-300">
-                                    <td className="px-3 py-2">{accessory.sno}</td>
-                                    <td className="px-3 py-2">{accessory.material}</td>
-                                    <td className="px-3 py-2">{accessory.hsnCode}</td>
-                                    <td className="px-3 py-2">{accessory.description}</td>
-                                    <td className="px-3 py-2">{accessory.color}</td>
-                                    <td className="px-3 py-2">{accessory.size}</td>
-                                    <td className="px-3 py-2">{accessory.quantity}</td>
-                                    <td className="px-3 py-2">{accessory.UOM}</td>
-                                    <td className="px-3 py-2">{accessory.amount}</td>
+                                    <td className="px-3 py-2 text-center">{accessory.sno}</td>
+                                    <td className="px-3 py-2 text-center">{accessory.material}</td>
+                                    <td className="px-3 py-2 text-center">{accessory.hsnCode}</td>
+                                    <td className="px-3 py-2 text-center">{accessory.description}</td>
+                                    <td className="px-3 py-2 text-center">{accessory.color}</td>
+                                    <td className="px-3 py-2 text-center">{accessory.size}</td>
+                                    <td className="px-3 py-2 text-center">{accessory.quantity}</td>
+                                    <td className="px-3 py-2 text-center">{accessory.UOM}</td>
+                                    <td className="px-3 py-2 text-center">{accessory.amount}</td>
                                 </tr>
                             ))}
                         </tbody>
