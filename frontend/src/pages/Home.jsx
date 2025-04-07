@@ -45,7 +45,7 @@ const Home = () => {
                         Manage PO
                     </div>
                     <div
-                        onClick={() => navigate('/addEmployee')}
+                        onClick={() => navigate('/add-employee')}
                         className='text-xl bg-blue-500 p-4 rounded-lg shadow-lg hover:bg-blue-600 transition duration-200 cursor-pointer w-1/2 text-center'
                     >
                         Add Employee

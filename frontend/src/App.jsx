@@ -5,6 +5,7 @@ import Home from './pages/Home.jsx'
 import Po from './pages/Po.jsx'
 import ProductDetails from './pages/managePo.jsx'
 import ProductSummary from "./components/ProductSummary.jsx";
+import AddEmployee from "./pages/AddEmp.jsx";
 function App(){
   return (
     <>
@@ -15,6 +16,7 @@ function App(){
             <Route path="/createPo" element={<Po/>}/>
             <Route path="/managePo" element={<ProductDetails/>}/>
             <Route path="/product-summary" element={<ProductSummary/>}/>
+            <Route path="/add-employee" element={<AddEmployee/>}/>
           </Routes>
        </BrowserRouter>
     </>
