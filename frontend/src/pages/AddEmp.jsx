@@ -33,7 +33,7 @@ const AddEmployee = () => {
 
   return (
     <div className="min-h-screen bg-white px-4 flex items-center justify-center relative">
-      {/* Top-left Light Green Back Button */}
+      {/* Light Green Back Button */}
       <button
         onClick={() => navigate(-1)}
         className="absolute top-4 left-4 bg-green-200 hover:bg-green-300 text-black font-medium py-1 px-4 rounded shadow"
@@ -41,7 +41,6 @@ const AddEmployee = () => {
         ← Back
       </button>
 
-      {/* Form */}
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-md bg-white p-8 border border-black rounded shadow-md"
@@ -52,32 +51,53 @@ const AddEmployee = () => {
           <label className="block mb-1 font-medium">Name</label>
           <input ref={nameRef} type="text" className="w-full p-2 border border-black rounded" required />
         </div>
+
         <div className="mb-4">
           <label className="block mb-1 font-medium">Employee ID</label>
           <input ref={idRef} type="text" className="w-full p-2 border border-black rounded" required />
         </div>
+
         <div className="mb-4">
           <label className="block mb-1 font-medium">Blood Group</label>
-          <input ref={bloodGroupRef} type="text" className="w-full p-2 border border-black rounded" required />
+          <select ref={bloodGroupRef} className="w-full p-2 border border-black rounded" required>
+            {/* <option value="">Select Blood Group</option> */}
+            <option value="A+">A+</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B-">B-</option>
+            <option value="O+">O+</option>
+            <option value="O-">O-</option>
+            <option value="AB+">AB+</option>
+            <option value="AB-">AB-</option>
+          </select>
         </div>
+
         <div className="mb-4">
           <label className="block mb-1 font-medium">Address</label>
           <textarea
             ref={addressRef}
-            className="w-full p-2 border border-black rounded resize-none h-24"
+            className="w-full p-2 border border-black rounded resize-none h-28"
             required
           />
         </div>
+
         <div className="mb-4">
           <label className="block mb-1 font-medium">Phone Number</label>
           <input ref={phoneRef} type="text" className="w-full p-2 border border-black rounded" required />
         </div>
+
         <div className="mb-6">
           <label className="block mb-1 font-medium">Department</label>
-          <input ref={departmentRef} type="text" className="w-full p-2 border border-black rounded" required />
+          <select ref={departmentRef} className="w-full p-2 border border-black rounded" required>
+            {/* <option value="">Select Department</option> */}
+            <option value="Manager">Manager</option>
+            <option value="Tailor">Tailor</option>
+            <option value="Cutting Master">Cutting Master</option>
+            {/* <option value="Finance"></option>
+            <option value="Operations">Operations</option> */}
+          </select>
         </div>
 
-        {/* Submit Button */}
         <button
           type="submit"
           disabled={loading}
