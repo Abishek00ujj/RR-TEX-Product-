@@ -3,6 +3,9 @@ const express=require("express");
 const cors=require("cors");
 
 
+require("./connection/conn");
+
+
 const app=express();
 
 const PORT=5000;
