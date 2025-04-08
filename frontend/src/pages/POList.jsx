@@ -378,7 +378,7 @@ const POList = () => {
                             {index + 1} {/* Display the first character of PO number */}
                         </div>
                         <h3 className="text-xl font-semibold text-gray-800">Po No : {po.poData.PO}</h3>
-                    </div>,
+                    </div>
                     <p className="text-gray-600">
                         <strong>PO Date:</strong> {po.poData.PoDate}
                     </p>
