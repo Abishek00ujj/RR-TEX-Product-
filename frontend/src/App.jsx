@@ -8,6 +8,7 @@ import ProductSummary from "./components/ProductSummary.jsx";
 import AddEmployee from "./pages/AddEmp.jsx";
 import POList from "./pages/POList.jsx";
 import ProductEdit from "./components/ProductEdit.jsx";
+import PurchaseOrderDetail from "./pages/displayPo.jsx";
 function App(){
   return (
     <>
@@ -18,6 +19,7 @@ function App(){
             <Route path="/createPo" element={<Po/>}/>
             <Route path="/managePo" element={<POList/>}/>
             <Route path="/edit" element={<ProductEdit/>}/>
+            <Route path="/viewPo" element={<PurchaseOrderDetail />}/>
             <Route path="/product-summary" element={<ProductSummary/>}/>
             <Route path="/add-employee" element={<AddEmployee/>}/>
           </Routes>
