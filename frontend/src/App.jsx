@@ -3,9 +3,11 @@ import {BrowserRouter,Routes,Route} from 'react-router-dom'
 import Index from './pages/Index.jsx';
 import Home from './pages/Home.jsx'
 import Po from './pages/Po.jsx'
-import ProductDetails from './pages/managePo.jsx'
+// import ProductDetails from './pages/managePo.jsx'
 import ProductSummary from "./components/ProductSummary.jsx";
 import AddEmployee from "./pages/AddEmp.jsx";
+import POList from "./pages/POList.jsx";
+import ProductEdit from "./components/ProductEdit.jsx";
 function App(){
   return (
     <>
@@ -14,7 +16,8 @@ function App(){
             <Route path="/" element={<Index/>}/>
             <Route path="/home" element={<Home/>}/>
             <Route path="/createPo" element={<Po/>}/>
-            <Route path="/managePo" element={<ProductDetails/>}/>
+            <Route path="/managePo" element={<POList/>}/>
+            <Route path="/edit" element={<ProductEdit/>}/>
             <Route path="/product-summary" element={<ProductSummary/>}/>
             <Route path="/add-employee" element={<AddEmployee/>}/>
           </Routes>
