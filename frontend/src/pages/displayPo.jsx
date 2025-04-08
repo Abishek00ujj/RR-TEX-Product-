@@ -13,6 +13,11 @@ const PurchaseOrderDetail = () => {
     return (
         <div className="p-8 max-w-screen-xl mx-auto space-y-10">
             <h2 className="text-5xl font-bold mb-8 text-center text-gray-800">Purchase Order Details</h2>
+            <div className="flex justify-between mb-4">
+                <button onClick={() => navigate(-1)} className="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400">
+                    Back
+                </button>
+            </div>
             <div className="bg-white rounded-lg shadow-lg p-10">
                 <h3 className="text-4xl font-semibold mb-6 text-blue-600">PO Number: {poData.poData.PO}</h3>
                 <p className="text-xl mb-3"><strong>PO Date:</strong> {poData.poData.PoDate}</p>
