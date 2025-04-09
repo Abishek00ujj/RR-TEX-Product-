@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react';
-
+import axios from 'axios';
+import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 const ProductDetails = ({podata}) => {
+
+    const notify = (message, icon = "✅") =>
+        toast(message, {
+            position: 'top-center',
+            icon,
+        });
     // --- State Definitions ---
     const navigate = useNavigate(); 
     const [materialSNo, setMaterialSNo] = useState(1);
@@ -264,7 +271,7 @@ const ProductDetails = ({podata}) => {
     };
 
     // --- SAVE ALL ---
-    const handleSaveAll = () => {
+    const handleSaveAll = async () => {
         const allDetails = {
             poData: podata,
             materialInfo: materialInfo,
@@ -274,15 +281,21 @@ const ProductDetails = ({podata}) => {
             gstDetails: gstDetails,
             accessoriesDetails: accessoriesDetails,
         };
-        console.log("--- ALL PRODUCT DETAILS ---");
-        console.log(JSON.stringify(allDetails, null, 2));
-        
-        // Navigate to ProductSummary and pass the details
-        navigate('/product-summary', { state: allDetails });
+    
+        try {
+            const res = await axios.post('http://localhost:5000/api/pos', allDetails);
+            console.log('✅ PO saved:', res.data);
+            notify("PO Saved successfully!"); // This should trigger the toast
+            navigate('/product-summary', { state: allDetails });
+        } catch (err) {
+            console.error('❌ Error saving PO:', err);
+            notify('Failed to save purchase order!', '❌'); // Notify on error
+        }
     };
-
     // --- Render JSX ---
     return (
+        <>
+        <Toaster/>
         <div className="p-4 md:p-6 max-w-screen-xl mx-auto space-y-6">
             {/* Material Information Section */}
             <div className="bg-white p-6 rounded-lg shadow-md">
@@ -643,6 +656,7 @@ const ProductDetails = ({podata}) => {
                 </button>
             </div>
         </div>
+        </>
     );
 };
 
