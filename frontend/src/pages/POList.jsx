@@ -37,7 +37,7 @@ const POList = () => {
             <h2 className="text-4xl font-bold mb-6 text-center text-gray-800">Purchase Orders List</h2>
 
             <div className="flex justify-between mb-4">
-                <button onClick={() => navigate(-1)} className="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400">
+                <button onClick={() => navigate("/home")} className="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400">
                     Back
                 </button>
             </div>

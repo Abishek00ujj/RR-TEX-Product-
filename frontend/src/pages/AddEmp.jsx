@@ -1,5 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import axios from 'axios'; // Import axios and toast
 
 const AddEmployee = () => {
   const nameRef = useRef();
@@ -12,23 +14,34 @@ const AddEmployee = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     const employeeData = {
       name: nameRef.current.value,
-      id: idRef.current.value,
+      employeeId: idRef.current.value, // Changed 'id' to 'employeeId' to match common naming
       bloodGroup: bloodGroupRef.current.value,
       address: addressRef.current.value,
       phone: phoneRef.current.value,
       department: departmentRef.current.value
     };
 
-    setTimeout(() => {
-      console.log('Submitted Employee Data:', employeeData);
+    try {
+      const response = await axios.post('http://localhost:5000/api/users', employeeData);
+      if (response.status === 201) {
+        toast.success('Employee added successfully!');
+        navigate('/manage-employees'); // Assuming you have a page to manage employees
+      } else {
+        toast.error('Failed to add employee.');
+        console.error('API Error:', response);
+      }
+    } catch (error) {
+      toast.error('Failed to add employee.');
+      console.error('API Error:', error);
+    } finally {
       setLoading(false);
-    }, 2000);
+    }
   };
 
   return (
