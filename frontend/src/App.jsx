@@ -11,6 +11,8 @@ import ProductEdit from "./components/ProductEdit.jsx";
 import ManageEmployee from "./pages/ManageEmployee.jsx";
 import EmployeeProfile from "./components/EmployeeProfile.jsx";
 import PurchaseOrderDetail from "./pages/displayPo.jsx";
+import ManageSalary from "./pages/ManageSalary.jsx"; // Import the new component
+
 function App(){
   return (
     <>
@@ -26,6 +28,7 @@ function App(){
             <Route path="/add-employee" element={<AddEmployee/>}/>
             <Route path="/manageEmployee" element={<ManageEmployee />} />
             <Route path="/employee" element={<EmployeeProfile />} />
+            <Route path="/manage-salary" element={<ManageSalary />} /> {/* Add the new route */}
           </Routes>
        </BrowserRouter>
     </>

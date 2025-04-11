@@ -56,6 +56,12 @@ const Home = () => {
                     >
                         Manage Employee
                     </div>
+                    <div
+                        onClick={() => navigate('/manage-salary')}
+                        className='text-xl bg-teal-500 p-4 rounded-lg shadow-lg hover:bg-teal-600 transition duration-200 cursor-pointer w-1/2 text-center'
+                    >
+                        Manage Salary
+                    </div>
                 </div>
             </div>
         </>
