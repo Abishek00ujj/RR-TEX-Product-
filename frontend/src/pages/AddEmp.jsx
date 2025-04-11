@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import axios from 'axios'; // Import axios and toast
+import axios from 'axios';
 
 const AddEmployee = () => {
   const nameRef = useRef();
@@ -20,7 +20,7 @@ const AddEmployee = () => {
 
     const employeeData = {
       name: nameRef.current.value,
-      employeeId: idRef.current.value, // Changed 'id' to 'employeeId' to match common naming
+      employeeId: idRef.current.value,
       bloodGroup: bloodGroupRef.current.value,
       address: addressRef.current.value,
       phone: phoneRef.current.value,
@@ -31,7 +31,7 @@ const AddEmployee = () => {
       const response = await axios.post('http://localhost:5000/api/users', employeeData);
       if (response.status === 201) {
         toast.success('Employee added successfully!');
-        navigate('/manage-employees'); // Assuming you have a page to manage employees
+        navigate('/manageEmployee'); // Redirect to manage employees after successful addition
       } else {
         toast.error('Failed to add employee.');
         console.error('API Error:', response);
@@ -45,35 +45,31 @@ const AddEmployee = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white px-4 flex items-center justify-center relative">
-      {/* Light Green Back Button */}
-      <button
-        onClick={() => navigate(-1)}
-        className="absolute top-4 left-4 bg-green-200 hover:bg-green-300 text-black font-medium py-1 px-4 rounded shadow"
-      >
-        ← Back
-      </button>
+    <>
 
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-purple-100 px-4 flex items-center justify-center relative">
+      {/* Colorful Back Button */}
+      
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-md bg-white p-8 border border-black rounded shadow-md"
+        className="w-full max-w-md bg-white p-10 rounded-lg shadow-xl border-2 border-purple-300"
       >
-        <h2 className="text-2xl font-bold text-center mb-6">Add Employee</h2>
+        <h2 className="text-3xl font-bold text-center text-purple-700 mb-8">Add New Employee</h2>
 
-        <div className="mb-4">
-          <label className="block mb-1 font-medium">Name</label>
-          <input ref={nameRef} type="text" className="w-full p-2 border border-black rounded" required />
+        <div className="mb-6">
+          <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">Name</label>
+          <input ref={nameRef} type="text" id="name" className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required />
         </div>
 
-        <div className="mb-4">
-          <label className="block mb-1 font-medium">Employee ID</label>
-          <input ref={idRef} type="text" className="w-full p-2 border border-black rounded" required />
+        <div className="mb-6">
+          <label htmlFor="employeeId" className="block text-gray-700 text-sm font-bold mb-2">Employee ID</label>
+          <input ref={idRef} type="text" id="employeeId" className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required />
         </div>
 
-        <div className="mb-4">
-          <label className="block mb-1 font-medium">Blood Group</label>
-          <select ref={bloodGroupRef} className="w-full p-2 border border-black rounded" required>
-            {/* <option value="">Select Blood Group</option> */}
+        <div className="mb-6">
+          <label htmlFor="bloodGroup" className="block text-gray-700 text-sm font-bold mb-2">Blood Group</label>
+          <select ref={bloodGroupRef} id="bloodGroup" className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            <option value="">Select Blood Group</option>
             <option value="A+">A+</option>
             <option value="A-">A-</option>
             <option value="B+">B+</option>
@@ -85,49 +81,49 @@ const AddEmployee = () => {
           </select>
         </div>
 
-        <div className="mb-4">
-          <label className="block mb-1 font-medium">Address</label>
+        <div className="mb-6">
+          <label htmlFor="address" className="block text-gray-700 text-sm font-bold mb-2">Address</label>
           <textarea
             ref={addressRef}
-            className="w-full p-2 border border-black rounded resize-none h-28"
+            id="address"
+            className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-none h-32"
             required
           />
         </div>
 
-        <div className="mb-4">
-          <label className="block mb-1 font-medium">Phone Number</label>
-          <input ref={phoneRef} type="text" className="w-full p-2 border border-black rounded" required />
+        <div className="mb-6">
+          <label htmlFor="phone" className="block text-gray-700 text-sm font-bold mb-2">Phone Number</label>
+          <input ref={phoneRef} type="text" id="phone" className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required />
         </div>
 
-        <div className="mb-6">
-          <label className="block mb-1 font-medium">Department</label>
-          <select ref={departmentRef} className="w-full p-2 border border-black rounded" required>
-            {/* <option value="">Select Department</option> */}
+        <div className="mb-8">
+          <label htmlFor="department" className="block text-gray-700 text-sm font-bold mb-2">Department</label>
+          <select ref={departmentRef} id="department" className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            <option value="">Select Department</option>
             <option value="Manager">Manager</option>
             <option value="Tailor">Tailor</option>
             <option value="Cutting Master">Cutting Master</option>
-            {/* <option value="Finance"></option>
-            <option value="Operations">Operations</option> */}
           </select>
         </div>
 
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-black text-white py-2 rounded flex justify-center items-center hover:bg-gray-800 transition"
+          className="w-full bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-bold py-3 rounded-lg focus:outline-none focus:shadow-outline hover:bg-indigo-500 transition duration-300"
         >
           {loading ? (
-            <>
+            <div className="flex justify-center items-center">
               <svg className="animate-spin h-5 w-5 mr-2 text-white" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l5-5-5-5v4a12 12 0 00-12 12h4z" />
               </svg>
               Submitting...
-            </>
-          ) : 'Submit'}
+            </div>
+          ) : 'Add Employee'}
         </button>
       </form>
     </div>
+    </>
   );
 };
 

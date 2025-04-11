@@ -22,8 +22,8 @@ const ManageEmployees = () => {
     fetchEmployees();
   }, []);
 
-  const handleCardClick = (employeeId) => {
-    navigate(`/employee/${employeeId}`); // Navigate to employee profile
+  const handleCardClick = (employee) => {
+    navigate('/employee', { state: { employee } });
   };
 
   const filteredEmployees = employees.filter(employee =>
@@ -31,30 +31,55 @@ const ManageEmployees = () => {
   );
 
   return (
-    <div className="min-h-screen bg-white p-4">
-      <h2 className="text-2xl font-bold text-center mb-6">Manage Employees</h2>
+    <div className="min-h-screen bg-gradient-to-br from-green-100 to-teal-100 p-6">
+      <div className="max-w-6xl mx-auto">
+        <h2 className="text-3xl font-bold text-center text-teal-700 mb-8">Employee Management</h2>
 
-      <input
-        type="text"
-        placeholder="Search Employees..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        className="w-full p-2 border border-black rounded mb-4"
-      />
+        <div className="mb-6">
+          <input
+            type="text"
+            placeholder="Search Employees by Name..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+        </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filteredEmployees.map(employee => (
-          <div
-            key={employee.id} // Use 'id' instead of 'employeeId'
-            className="border border-gray-300 rounded p-4 cursor-pointer hover:shadow-lg"
-            onClick={() => handleCardClick(employee.id)} // Use 'id' instead of 'employeeId'
-          >
-            <h3 className="text-xl font-semibold">{employee.name}</h3>
-            <p>Employee ID: {employee.id}</p> {/* Use 'id' instead of 'employeeId' */}
-            <p>Department: {employee.department}</p>
-            <p>Phone: {employee.phone}</p>
-          </div>
-        ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredEmployees.map(employee => (
+            <div
+              key={employee.id}
+              className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300 cursor-pointer border-2 border-teal-200"
+              onClick={() => handleCardClick(employee)}
+            >
+              <div className="p-6">
+                <h3 className="text-xl font-semibold text-teal-600 mb-2">{employee.name}</h3>
+                <p className="text-gray-600">
+                  <strong className="text-teal-700">Employee ID:</strong> {employee.employeeId}
+                </p>
+                <p className="text-gray-600">
+                  <strong className="text-teal-700">Department:</strong> {employee.department}
+                </p>
+                <p className="text-gray-600">
+                  <strong className="text-teal-700">Phone:</strong> {employee.phone}
+                </p>
+              </div>
+            </div>
+          ))}
+          {filteredEmployees.length === 0 && (
+            <div className="col-span-full text-center py-8">
+              <p className="text-gray-500">No employees found matching your search.</p>
+            </div>
+          )}
+        </div>
+
+        {/* Add Employee Button */}
+        <button
+          onClick={() => navigate('/add-employee')}
+          className="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+        >
+          + Add Employee
+        </button>
       </div>
     </div>
   );

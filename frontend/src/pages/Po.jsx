@@ -59,6 +59,12 @@ const Po = () => {
             <Navbar />
             <div className="w-screen flex flex-col justify-center items-center space-y-5 text-black p-4">
                 <div className="text-black text-2xl font-semibold">Add PO Details</div>
+                <div className="w-full flex justify-start">
+                <button onClick={() => navigate("/home")} className="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400">
+                    Back
+                </button>
+            </div>
+
                 {hide1 ? (
                     <div className="max-w-2xl w-full space-y-6 bg-white p-6 rounded-lg shadow-md">
                         <table className="min-w-full table-auto">
